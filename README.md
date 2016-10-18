@@ -16,5 +16,9 @@
 
 #### First run
 
+    cp config/dev.secret.exs{.example,}
+    nano config/dev.secret.exs
+    cp config/test.secret.exs{.example,}
+    nano config/test.secret.exs
     mix deps.get
     mix ecto.create

@@ -7,4 +7,7 @@ config :poscaster, Poscaster.Endpoint,
 
 config :logger, level: :info
 
-import_config "prod.secret.exs"
+config :poscaster, Poscaster.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: {:system, "DATABASE_URL"},
+  pool_size: 10

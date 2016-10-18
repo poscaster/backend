@@ -6,10 +6,4 @@ config :poscaster, Poscaster.Endpoint,
 
 config :logger, level: :warn
 
-config :poscaster, Poscaster.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "poscaster_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+import_config "test.secret.exs"
