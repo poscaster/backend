@@ -32,6 +32,7 @@ you need that cloned as well.
 
 Assuming you are starting in this repository:
 
+    cp .dockerignore ../
     cd ../
     git clone https://github.com/poscaster/frontend
     docker build -t poscaster -f backend/Dockerfile .
