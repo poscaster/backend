@@ -11,9 +11,6 @@ ENV BACKEND_APP=/opt/app/backend \
 
 EXPOSE 5000
 
-RUN adduser -D poscaster -h /opt/app
-USER poscaster
-
 RUN mkdir -p $BACKEND_APP $FRONTEND_APP
 
 # Cache node deps
@@ -42,4 +39,7 @@ RUN unlink priv/static && cp -R ../frontend/dist priv/static
 RUN mix compile
 RUN mix phoenix.digest
 
-CMD ["mix", "phoenix.server"]
+RUN adduser -D poscaster
+USER poscaster
+
+CMD HOME=/opt/app mix phoenix.server
