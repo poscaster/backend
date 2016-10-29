@@ -47,7 +47,7 @@ defmodule Poscaster.Web do
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
       import Poscaster.Router.Helpers
-      import Poscaster.ErrorHelpers
+      # import Poscaster.ErrorHelpers
       import Poscaster.Gettext
     end
   end

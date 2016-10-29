@@ -2,7 +2,7 @@ use Mix.Config
 
 config :poscaster, Poscaster.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
+  url: [host: "poscaster.herokuapp.com", port: 443],
   cache_static_manifest: "priv/static/manifest.json"
 
 config :logger, level: :info
