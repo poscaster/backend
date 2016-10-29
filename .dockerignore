@@ -1,0 +1,5 @@
+backend/_build/
+backend/config/*.secret.exs
+backend/deps/
+frontend/dist/
+frontend/node_modules

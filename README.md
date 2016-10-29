@@ -22,3 +22,18 @@
     nano config/test.secret.exs
     mix deps.get
     mix ecto.create
+
+## Docker
+
+This repo includes Dockerfile to prepare an image for poscaster
+deployment. Image also includes compiled
+[poscaster/frontend](https://github.com/poscaster/frontend), so
+you need that cloned as well.
+
+Assuming you are starting in this repository:
+
+    cp .dockerignore ../
+    cd ../
+    git clone https://github.com/poscaster/frontend
+    docker build -t poscaster -f backend/Dockerfile .
+    docker run -p 5000:5000 --net=host -e DATABASE_URL=postgres://postgres@localhost:5432/poscaster poscaster

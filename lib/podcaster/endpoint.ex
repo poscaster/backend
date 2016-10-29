@@ -3,13 +3,22 @@ defmodule Poscaster.Endpoint do
 
   socket "/socket", Poscaster.UserSocket
 
-  plug Plug.Static,
-    at: "/", from: :poscaster, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
-
   if code_reloading? do
     plug Phoenix.CodeReloader
   end
+
+  def redirect_index(conn = %Plug.Conn{path_info: []}, _opts) do
+    %Plug.Conn{conn | path_info: ["index.html"]}
+  end
+
+  def redirect_index(conn, _opts) do
+    conn
+  end
+
+  plug :redirect_index
+
+  plug Plug.Static,
+    at: "/", from: :poscaster, gzip: true
 
   plug Plug.RequestId
   plug Plug.Logger
