@@ -10,7 +10,8 @@ defmodule Poscaster.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     test_coverage: [tool: ExCoveralls]]
   end
 
   # Configuration for the OTP application.
@@ -37,7 +38,8 @@ defmodule Poscaster.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.4"},
-     {:guardian, "~> 0.13"}]
+     {:guardian, "~> 0.13"},
+     {:excoveralls, "~> 0.5.7"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

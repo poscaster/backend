@@ -23,6 +23,18 @@
     mix deps.get
     mix ecto.create
 
+### Testing and coverage
+
+#### Run tests
+
+    MIX_ENV=test mix test
+
+#### Get coverage
+
+    MIX_ENV=test mix coveralls.html
+
+The coverage info is placed under `cover/excoveralls.html`.
+
 ## Docker
 
 This repo includes Dockerfile to prepare an image for poscaster
