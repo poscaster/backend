@@ -9,5 +9,7 @@ before_install:
   - cp config/test.secret.exs{.example,}
 before_script:
   - mix do ecto.create, ecto.migrate
+after_script:
+  - mix coveralls.travis
 env:
   - MIX_ENV=test
