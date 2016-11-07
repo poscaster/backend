@@ -49,3 +49,12 @@ Assuming you are starting in this repository:
     git clone https://github.com/poscaster/frontend
     docker build -t poscaster -f backend/Dockerfile .
     docker run -p 5000:5000 --net=host -e DATABASE_URL=postgres://postgres@localhost:5432/poscaster poscaster
+
+## Misc
+
+### Generating Guardian key
+
+    {_, key} = JOSE.JWK.to_binary(JOSE.JWS.generate_key(%{"alg" => "HS512"})); key
+    # => "{\"alg\":\"HS512\",\"k\":\"SECRET\",\"kty\":\"oct\",\"use\":\"sig\"}"
+
+Use the `key` value as `GUARDIAN_SECRET_KEY`.
