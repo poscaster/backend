@@ -11,3 +11,13 @@ config :poscaster, Poscaster.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
   pool_size: 10
+
+config :guardian, Guardian,
+  allowed_algos: ["HS512"],
+  issuer: "Poscaster",
+  ttl: { 90, :days },
+  verify_issuer: true,
+  secret_key: fn ->
+    System.get_env("GUARDIAN_SECRET_KEY")
+  end,
+  serializer: Poscaster.GuardianSerializer
