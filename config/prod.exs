@@ -10,6 +10,7 @@ config :logger, level: :info
 config :poscaster, Poscaster.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
+  ssl: true,
   pool_size: 10
 
 config :guardian, Guardian,

@@ -25,7 +25,11 @@ RUN apk --update add build-base nasm autoconf automake libtool libpng-dev python
 # Cache elixir deps
 WORKDIR $BACKEND_APP
 COPY ${backend_source}/mix.exs ${backend_source}/mix.lock ./
-RUN mix do deps.get, deps.compile
+COPY ${backend_source}/config/config.exs ${backend_source}/config/prod.exs ./config/
+RUN apk --update add build-base && \
+    mix do deps.get --only-prod, deps.compile && \
+    apk del build-base && \
+    rm -rf /var/cache/apk/*
 
 ADD $frontend_source $FRONTEND_APP
 
