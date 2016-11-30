@@ -1,7 +1,7 @@
 defmodule Poscaster.Invitation do
   use Poscaster.Web, :model
 
-  @primary_key {:code, :binary_id, autogenerate: true}
+  @primary_key {:code, :binary_id, read_after_writes: true}
 
   schema "invitations" do
     timestamps()

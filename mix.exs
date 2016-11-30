@@ -39,7 +39,8 @@ defmodule Poscaster.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.4"},
      {:guardian, "~> 0.13"},
-     {:excoveralls, "~> 0.5.7"}]
+     {:excoveralls, "~> 0.5.7"},
+     {:feeder_ex, "~> 0.0.5"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

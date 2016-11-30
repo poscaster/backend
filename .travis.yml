@@ -13,3 +13,5 @@ after_script:
   - mix coveralls.travis
 env:
   - MIX_ENV=test
+addons:
+  postgresql: "9.4"

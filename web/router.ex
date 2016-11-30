@@ -16,5 +16,6 @@ defmodule Poscaster.Router do
 
     resources "/users", UserController, only: [:create]
     resources "/sessions", SessionController, only: ~w(create delete)a
+		resources "/subscriptions", SubscriptionController, only: ~w(create)a
   end
 end
