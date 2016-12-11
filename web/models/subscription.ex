@@ -15,6 +15,8 @@ defmodule Poscaster.Subscription do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:active])
-    |> validate_required([:active])
+    |> cast_assoc(:feed)
+    |> cast_assoc(:user)
+    # |> validate_required(:feed_id, :user_id)
   end
 end

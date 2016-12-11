@@ -1,5 +1,5 @@
-defmodule FeedItemData do
-  use Ecto.Model
+defmodule Poscaster.FeedItemData do
+  use Poscaster.Web, :model
 
 	@primary_key false
 	embedded_schema do

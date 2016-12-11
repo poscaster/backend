@@ -1,0 +1,26 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://www.rssboard.org/files/sample-rss-2.xml"
+    },
+    "response": {
+      "body": "<?xml version=\"1.0\"?>\r\n<rss version=\"2.0\">\r\n   <channel>\r\n      <title>Liftoff News</title>\r\n      <link>http://liftoff.msfc.nasa.gov/</link>\r\n      <description>Liftoff to Space Exploration.</description>\r\n      <language>en-us</language>\r\n      <pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>\r\n      <lastBuildDate>Tue, 10 Jun 2003 09:41:01 GMT</lastBuildDate>\r\n      <docs>http://blogs.law.harvard.edu/tech/rss</docs>\r\n      <generator>Weblog Editor 2.0</generator>\r\n      <managingEditor>editor@example.com</managingEditor>\r\n      <webMaster>webmaster@example.com</webMaster>\r\n      <item>\r\n         <title>Star City</title>\r\n         <link>http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp</link>\r\n         <description>How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's &lt;a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\"&gt;Star City&lt;/a&gt;.</description>\r\n         <pubDate>Tue, 03 Jun 2003 09:39:21 GMT</pubDate>\r\n         <guid>http://liftoff.msfc.nasa.gov/2003/06/03.html#item573</guid>\r\n      </item>\r\n   </channel>\r\n</rss>",
+      "headers": {
+        "Date": "Mon, 05 Dec 2016 22:01:56 GMT",
+        "Server": "Apache/2.2.22 (Unix)",
+        "Last-Modified": "Mon, 17 Oct 2016 22:37:03 GMT",
+        "ETag": "\"318211f-a08-53f1736ffe6eb\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "1204",
+        "Content-Type": "application/xml"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

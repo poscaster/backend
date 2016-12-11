@@ -1,0 +1,25 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://www.rssboard.org/files/sample-rss-2.xml"
+    },
+    "response": {
+      "body": "",
+      "headers": {
+        "Date": "Mon, 05 Dec 2016 22:01:56 GMT",
+        "Server": "Apache/2.2.22 (Unix)",
+        "Last-Modified": "Mon, 17 Oct 2016 22:37:03 GMT",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "",
+        "Content-Type": "application/octet-stream"
+      },
+      "status_code": 404,
+      "type": "not_found"
+    }
+  }
+]

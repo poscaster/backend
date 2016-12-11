@@ -12,6 +12,6 @@ defmodule Poscaster.Repo.Migrations.CreateFeedItem do
       timestamps(default: fragment("now()"))
     end
 
-    create index(:feed_items, [:feed_id, "(\"item_data\" ->> 'guid')"])
+    create index(:feed_items, [:feed_id, "(\"item_data\" ->> 'id')"])
   end
 end

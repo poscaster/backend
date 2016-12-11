@@ -1,5 +1,9 @@
 defmodule Poscaster.Feed do
   use Poscaster.Web, :model
+  import Ecto.Query
+  alias Poscaster.HttpFeed
+  alias Poscaster.Feed
+  alias Poscaster.Repo
 
   schema "feeds" do
     field :url, :string
@@ -17,6 +21,34 @@ defmodule Poscaster.Feed do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:url, :title, :description, :last_fetched_at])
-    |> validate_required([:url, :title, :description, :last_fetched_at])
+    |> cast_assoc(:creator)
+    |> validate_required([:url, :title, :description]) # , [:creator_id])
+  end
+
+	def get_by_url_or_create(url, user \\ nil) do
+    feed = Feed
+    |> where([f], f.url == ^url)
+    |> first
+    |> Repo.one
+
+    if feed do
+      {:ok, feed}
+    else
+      case HttpFeed.from_url(url) do
+        {:ok, http_feed} ->
+          feed_params = HttpFeed.extract_feed(http_feed)
+          |> Map.merge(%{creator: user})
+          |> Map.merge(%{url: url})
+          changeset = changeset(%Feed{}, feed_params)
+          case Repo.insert(changeset) do
+            {:ok, feed} ->
+              {:ok, feed}
+            {:error, _changeset} ->
+              {:error, :cannot_save_feed}
+          end
+        {:error, err} ->
+          {:error, err}
+      end
+    end
   end
 end
