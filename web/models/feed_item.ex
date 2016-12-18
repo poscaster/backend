@@ -3,9 +3,9 @@ defmodule Poscaster.FeedItem do
 
   schema "feed_items" do
     field :url, :string
-		field :item_xml, :string
+    field :item_xml, :string
     belongs_to :feed, Poscaster.Feed
-		embeds_one :item_data, Podcaster.FeedItemData
+    embeds_one :item_data, Podcaster.FeedItemData
 
     timestamps()
   end

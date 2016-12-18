@@ -10,7 +10,7 @@ defmodule Poscaster.Feed do
     field :title, :string
     field :description, :string
     field :last_fetched_at, Ecto.DateTime
-    belongs_to :creator, Poscaster.Creator
+    belongs_to :creator, Poscaster.User
 
     timestamps()
   end
@@ -25,7 +25,7 @@ defmodule Poscaster.Feed do
     |> validate_required([:url, :title, :description]) # , [:creator_id])
   end
 
-	def get_by_url_or_create(url, user \\ nil) do
+  def get_by_url_or_create(url, user \\ nil) do
     feed = Feed
     |> where([f], f.url == ^url)
     |> first
@@ -37,9 +37,9 @@ defmodule Poscaster.Feed do
       case HttpFeed.from_url(url) do
         {:ok, http_feed} ->
           feed_params = HttpFeed.extract_feed(http_feed)
-          |> Map.merge(%{creator: user})
           |> Map.merge(%{url: url})
           changeset = changeset(%Feed{}, feed_params)
+          |> put_assoc(:creator, user)
           case Repo.insert(changeset) do
             {:ok, feed} ->
               {:ok, feed}

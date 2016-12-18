@@ -1,5 +1,6 @@
 defmodule Poscaster.Subscription do
   use Poscaster.Web, :model
+  alias Poscaster.Repo
 
   schema "subscriptions" do
     field :active, :boolean, default: true
@@ -14,9 +15,16 @@ defmodule Poscaster.Subscription do
   """
   def changeset(struct, params \\ %{}) do
     struct
+    |> Repo.preload(:feed)
+    |> Repo.preload(:user)
     |> cast(params, [:active])
-    |> cast_assoc(:feed)
-    |> cast_assoc(:user)
-    # |> validate_required(:feed_id, :user_id)
+  end
+
+  def creation_changeset(struct, feed, user, params \\ %{}) do
+    struct
+    |> changeset(params)
+    |> put_assoc(:feed, feed)
+    |> put_assoc(:user, user)
+    |> validate_required([:feed, :user])
   end
 end

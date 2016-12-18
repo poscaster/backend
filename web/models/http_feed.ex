@@ -2,19 +2,19 @@ defmodule Poscaster.HttpFeed do
   @doc ~S"""
   Fetches and parses feed by url
   """
-	def from_url(url) do
-		case HTTPoison.get(url) do
-			{:ok, %HTTPoison.Response{body: body, status_code: code}} when code < 400 and code >= 200 ->
-				case FeederEx.parse(body) do
-					{:ok, feed, _} ->
-						{:ok, feed}
-					_ ->
-						{:error, :cannot_parse}
-				end
-			_ ->
-				{:error, :cannot_fetch}
-		end
-	end
+  def from_url(url) do
+    case HTTPoison.get(url) do
+      {:ok, %HTTPoison.Response{body: body, status_code: code}} when code < 400 and code >= 200 ->
+        case FeederEx.parse(body) do
+          {:ok, feed, _} ->
+            {:ok, feed}
+          _ ->
+            {:error, :cannot_parse}
+        end
+      _ ->
+        {:error, :cannot_fetch}
+    end
+  end
 
   @doc ~S"""
   Extracts feed attributes from FeederEx'es Feed.
@@ -26,18 +26,18 @@ defmodule Poscaster.HttpFeed do
     ...(1)>   title: "Awesomecast"}
     %{title: "Awesomecast", description: "Awesone podcast feed description"}
   """
-	def extract_feed(%FeederEx.Feed{summary: description, title: title}) do
-		%{
-			title: title,
-			description: description
-		}
-	end
+  def extract_feed(%FeederEx.Feed{summary: description, title: title}) do
+    %{
+      title: title,
+      description: description
+    }
+  end
 
   @doc ~S"""
   Extracts feed items attributes from FeederEx'es Feed.
   """
-	def extract_feed_items(%FeederEx.Feed{entries: entries}) do
-		entries
+  def extract_feed_items(%FeederEx.Feed{entries: entries}) do
+    entries
     |> Enum.map(fn(%FeederEx.Entry{enclosure: %{url: url}, updated: pub_date} = item_data) ->
       %{
         url: url,

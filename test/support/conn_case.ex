@@ -29,6 +29,15 @@ defmodule Poscaster.ConnCase do
 
       # The default endpoint for testing
       @endpoint Poscaster.Endpoint
+
+      def login(conn, user) do
+        params = %{ login: user.login, password: user.password }
+        conn = post conn, "/api/sessions", %{user: params}
+        auth = List.first(get_resp_header(conn, "authorization"))
+        conn
+        |> recycle()
+        |> put_req_header("authorization", auth)
+      end
     end
   end
 

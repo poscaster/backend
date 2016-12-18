@@ -4,13 +4,14 @@ defmodule Poscaster.SubscriptionController do
   alias Poscaster.Repo
   alias Poscaster.Subscription
 
+  plug Guardian.Plug.EnsureAuthenticated
 
   def create(conn, %{"subscription" => %{"url" => url}}) do
     user = Guardian.Plug.current_resource(conn)
     case Feed.get_by_url_or_create(url, user) do
       {:ok, feed} ->
-        changeset = %Subscription{feed: feed, user: user}
-        |> Subscription.changeset(%{})
+        changeset = %Subscription{}
+        |> Subscription.creation_changeset(feed, user)
         case Repo.insert(changeset) do
           {:ok, subscription} ->
             conn

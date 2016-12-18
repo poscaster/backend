@@ -1,0 +1,34 @@
+defmodule SessionControllerTest do
+  use Poscaster.ConnCase
+  import Poscaster.Factory
+
+  test "POST /api/sessions", %{conn: conn} do
+    user = insert(:user)
+
+    params = %{ login: user.login, password: user.password }
+    conn = post conn, "/api/sessions", %{user: params}
+
+    response = json_response(conn, 200)
+    assert Map.get(response, "user") == %{
+      "login" => user.login,
+      "email" => user.email
+    }
+    assert List.first(get_resp_header(conn, "authorization")) =~ ~r{\ABearer }
+    assert List.first(get_resp_header(conn, "x-expires")) =~ ~r{\A\d+\z}
+  end
+
+  test "DELETE /api/sessions", %{conn: conn} do
+    user = insert(:user)
+
+    conn = conn
+    |> login(user)
+    |> delete("/api/sessions/1", %{})
+
+    assert json_response(conn, 200) == %{
+      "user" => nil,
+      "jwt" => nil,
+      "exp" => nil
+    }
+    assert Guardian.Plug.current_resource(recycle(conn)) == nil
+  end
+end

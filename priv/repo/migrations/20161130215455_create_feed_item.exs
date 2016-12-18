@@ -3,10 +3,10 @@ defmodule Poscaster.Repo.Migrations.CreateFeedItem do
 
   def change do
     create table(:feed_items) do
-			add :url, :string, null: false
-			add :item_data, :map
-			add :item_xml, :string
-			add :pub_date, :timestamp
+      add :url, :string, null: false
+      add :item_data, :map
+      add :item_xml, :string
+      add :pub_date, :timestamp
       add :feed_id, references(:feeds, on_delete: :nothing)
 
       timestamps(default: fragment("now()"))

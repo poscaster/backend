@@ -14,8 +14,8 @@ defmodule Poscaster.SessionController do
         exp = Map.get(claims, "exp")
 
         new_conn
-        |> Plug.Conn.put_resp_header(<<"Authorization">>, <<"Bearer #{jwt}">>)
-        |> Plug.Conn.put_resp_header(<<"X-Expires">>, :erlang.integer_to_binary(exp))
+        |> Plug.Conn.put_resp_header(<<"authorization">>, <<"Bearer #{jwt}">>)
+        |> Plug.Conn.put_resp_header(<<"x-expires">>, :erlang.integer_to_binary(exp))
         |> render("session.json", user: user, jwt: jwt, exp: exp)
       {:error} ->
         conn

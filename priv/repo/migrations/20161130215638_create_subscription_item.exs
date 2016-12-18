@@ -12,6 +12,6 @@ defmodule Poscaster.Repo.Migrations.CreateSubscriptionItem do
     end
 
     create unique_index(:subscription_items, [:subscription_id, :feed_item_id])
-		create index(:subscription_items, ~w(subscription_id finished inserted_at)a)
+    create index(:subscription_items, ~w(subscription_id finished inserted_at)a)
   end
 end
