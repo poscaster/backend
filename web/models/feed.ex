@@ -26,10 +26,7 @@ defmodule Poscaster.Feed do
   end
 
   def get_by_url_or_create(url, user \\ nil) do
-    feed = Feed
-    |> where([f], f.url == ^url)
-    |> first
-    |> Repo.one
+    feed = find_by_url(url)
 
     if feed do
       {:ok, feed}
@@ -40,9 +37,13 @@ defmodule Poscaster.Feed do
           |> Map.merge(%{url: url})
           changeset = changeset(%Feed{}, feed_params)
           |> put_assoc(:creator, user)
-          case Repo.insert(changeset) do
+          case Repo.insert(changeset, conflict_target: :url, on_conflict: :nothing) do
             {:ok, feed} ->
-              {:ok, feed}
+              if feed.id do
+                {:ok, feed}
+              else
+                {:ok, find_by_url(url)}
+              end
             {:error, _changeset} ->
               {:error, :cannot_save_feed}
           end
@@ -50,5 +51,12 @@ defmodule Poscaster.Feed do
           {:error, err}
       end
     end
+  end
+
+  defp find_by_url(url) do
+    Feed
+    |> where([f], f.url == ^url)
+    |> first
+    |> Repo.one
   end
 end

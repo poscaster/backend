@@ -39,7 +39,7 @@ defmodule Poscaster.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
      {:guardian, "~> 0.13"},
-     {:excoveralls, "~> 0.5.7"},
+     {:excoveralls, "~> 0.5.7", only: :test},
      {:feeder_ex, "~> 0.0.5"},
      {:httpoison, "~> 0.10.0"},
      {:timex, "~> 3.1"},

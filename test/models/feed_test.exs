@@ -3,7 +3,12 @@ defmodule Poscaster.FeedTest do
 
   alias Poscaster.Feed
 
-  @valid_attrs %{description: "some content", last_fetched_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, title: "some content", url: "some content"}
+  @valid_attrs %{
+    description: "some content",
+    last_fetched_at: Timex.to_datetime({{2016, 4, 17}, {14, 0, 0}}, "GMT"),
+    title: "some content",
+    url: "some content"
+  }
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
