@@ -1,4 +1,8 @@
 defmodule Poscaster.FeedItem do
+  @moduledoc """
+  Fiid item model module
+  """
+
   use Poscaster.Web, :model
 
   schema "feed_items" do
@@ -13,6 +17,7 @@ defmodule Poscaster.FeedItem do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @spec changeset(%Poscaster.FeedItem{}, %{optional(any) => any}) :: %Ecto.Changeset{}
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:url, :item_xml])

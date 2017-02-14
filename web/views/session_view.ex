@@ -1,6 +1,7 @@
 defmodule Poscaster.SessionView do
   use Poscaster.Web, :view
 
+  @spec render(String.t, %{optional(atom) => any}) :: %{optional(any) => any}
   def render("session.json", %{user: user, jwt: jwt, exp: exp}) do
     juser =
       if user do

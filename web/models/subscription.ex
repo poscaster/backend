@@ -1,4 +1,8 @@
 defmodule Poscaster.Subscription do
+  @moduledoc """
+  Subscription model module
+  """
+
   use Poscaster.Web, :model
   alias Poscaster.Repo
 
@@ -13,6 +17,7 @@ defmodule Poscaster.Subscription do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @spec changeset(%Poscaster.Subscription{}, %{optional(any) => any}) :: %Ecto.Changeset{}
   def changeset(struct, params \\ %{}) do
     struct
     |> Repo.preload(:feed)
@@ -20,6 +25,8 @@ defmodule Poscaster.Subscription do
     |> cast(params, [:active])
   end
 
+  @spec creation_changeset(%Poscaster.Subscription{}, %Poscaster.Feed{}, %Poscaster.User{},
+    %{optional(any) => any}) :: %Ecto.Changeset{}
   def creation_changeset(struct, feed, user, params \\ %{}) do
     struct
     |> changeset(params)

@@ -7,10 +7,12 @@ defmodule Poscaster.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  @spec redirect_index(Plug.Conn.t, any) :: Plug.Conn.t
   def redirect_index(conn = %Plug.Conn{path_info: []}, _opts) do
     %Plug.Conn{conn | path_info: ["index.html"]}
   end
 
+  @spec redirect_index(Plug.Conn.t, any) :: Plug.Conn.t
   def redirect_index(conn, _opts) do
     conn
   end

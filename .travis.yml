@@ -8,11 +8,18 @@ otp_release:
   - 19.1
 before_install:
   - cp config/test.secret.exs{.example,}
+  - rvm install ruby-2.3.1
+  - gem install pronto-credo
 before_script:
   - mix do ecto.create, ecto.migrate
 after_script:
   - mix coveralls.travis
 env:
-  - MIX_ENV=test
+  global:
+    - MIX_ENV=test
+    - PULL_REQUEST_ID=$TRAVIS_PULL_REQUEST
+script:
+ - if [ "$PULL_REQUEST_ID" != false ]; then pronto run -f github_pr; fi
+ - mix test
 addons:
   postgresql: "9.5"

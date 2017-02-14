@@ -19,6 +19,7 @@ defmodule Poscaster.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
+  @spec connect(map, Socket.t) :: {:ok, Socket.t} | :error
   def connect(_params, socket) do
     {:ok, socket}
   end
@@ -33,5 +34,6 @@ defmodule Poscaster.UserSocket do
   #     Poscaster.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
+  @spec id(Socket.t) :: String.t | nil
   def id(_socket), do: nil
 end

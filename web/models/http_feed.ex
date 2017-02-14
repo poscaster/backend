@@ -1,7 +1,12 @@
 defmodule Poscaster.HttpFeed do
+  @moduledoc """
+  HTTP feed model module
+  """
+
   @doc ~S"""
   Fetches and parses feed by url
   """
+  @spec from_url(String.t) :: {:ok, %FeederEx.Feed{}} | {:error, atom}
   def from_url(url) do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{body: body, status_code: code}} when code < 400 and code >= 200 ->
@@ -26,6 +31,7 @@ defmodule Poscaster.HttpFeed do
     ...(1)>   title: "Awesomecast"}
     %{title: "Awesomecast", description: "Awesone podcast feed description"}
   """
+  @spec extract_feed(%FeederEx.Feed{}) :: %{title: String.t, description: String.t}
   def extract_feed(%FeederEx.Feed{summary: description, title: title}) do
     %{
       title: title,
@@ -36,6 +42,11 @@ defmodule Poscaster.HttpFeed do
   @doc ~S"""
   Extracts feed items attributes from FeederEx'es Feed.
   """
+  @spec extract_feed_items(%FeederEx.Feed{}) :: [%{
+                                                    url: String.t,
+                                                    item_data: %{optional(any) => any},
+                                                    pub_date: %DateTime{} | nil
+                                                 }]
   def extract_feed_items(%FeederEx.Feed{entries: entries}) do
     entries
     |> Enum.map(fn(%FeederEx.Entry{enclosure: %{url: url}, updated: pub_date} = item_data) ->

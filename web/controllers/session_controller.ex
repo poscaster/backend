@@ -5,6 +5,7 @@ defmodule Poscaster.SessionController do
 
   plug :scrub_params, "user" when action in [:create]
 
+  @spec create(Plug.Conn.t, %{optional(String.t) => any}) :: Plug.Conn.t
   def create(conn, params) do
     case User.find_and_confirm_password(params) do
       {:ok, user} ->
@@ -24,6 +25,7 @@ defmodule Poscaster.SessionController do
     end
   end
 
+  @spec delete(Plug.Conn.t, %{optional(String.t) => any}) :: Plug.Conn.t
   def delete(conn, _params) do
     jwt = Guardian.Plug.current_token(conn)
     {:ok, claims} = Guardian.Plug.claims(conn)

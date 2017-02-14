@@ -1,4 +1,8 @@
 defmodule Poscaster.User do
+  @moduledoc """
+  User model module
+  """
+
   use Poscaster.Web, :model
   import Ecto.Query
   alias Poscaster.Repo
@@ -19,6 +23,7 @@ defmodule Poscaster.User do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @spec changeset(%Poscaster.User{}, %{optional(atom) => any}) :: %Ecto.Changeset{}
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, ~w(login email))
@@ -30,6 +35,7 @@ defmodule Poscaster.User do
     |> unique_constraint(:login)
   end
 
+  @spec registration_changeset(%Poscaster.User{}, %{optional(atom) => any}) :: %Ecto.Changeset{}
   def registration_changeset(model, params) do
     model
     |> changeset(params)
@@ -46,6 +52,7 @@ defmodule Poscaster.User do
     |> put_password_hash()
   end
 
+  @spec find_and_confirm_password(%{"user": %{"login": String.t, "password": String.t}}) :: {:error} | {:ok, %Poscaster.User{}}
   def find_and_confirm_password(%{"user" => %{"login" => login, "password" => password}}) do
     user = if login, do: find_by_email_or_login(login)
     if user && password do
@@ -61,6 +68,7 @@ defmodule Poscaster.User do
     end
   end
 
+  @spec find_by_email_or_login(String.t) :: %Poscaster.User{}
   defp find_by_email_or_login(str) do
     Poscaster.User
     |> where([u], u.login == ^str or u.email == ^str)
@@ -68,6 +76,7 @@ defmodule Poscaster.User do
     |> Repo.one
   end
 
+  @spec put_password_hash(%Ecto.Changeset{}) :: %Ecto.Changeset{}
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->

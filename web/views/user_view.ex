@@ -1,6 +1,7 @@
 defmodule Poscaster.UserView do
   use Poscaster.Web, :view
 
+  @spec render(String.t, %{optional(atom) => any}) :: %{optional(any) => any}
   def render("user.json", %{user: user}) do
     %{user: %{login: user.login, email: user.email}}
   end

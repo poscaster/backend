@@ -38,6 +38,7 @@ defmodule Poscaster.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
+     {:credo, "~> 0.5", only: [:dev, :test]},
      {:guardian, "~> 0.13"},
      {:excoveralls, "~> 0.6", only: :test},
      {:feeder_ex, "~> 1.0"},
