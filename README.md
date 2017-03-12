@@ -35,6 +35,10 @@
 
 The coverage info is placed under `cover/excoveralls.html`.
 
+#### Static code analysis
+
+    mix credo --strict
+
 ## Docker
 
 This repo includes Dockerfile to prepare an image for poscaster

@@ -45,7 +45,7 @@ defmodule Poscaster.Mixfile do
      {:httpoison, "~> 0.11"},
      {:timex, "~> 3.1"},
      {:exvcr, "~> 0.7", only: :test},
-     {:ex_machina, "~> 1.0", only: :test}]
+     {:ex_machina, "~> 2.0", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
