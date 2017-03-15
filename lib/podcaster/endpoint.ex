@@ -39,5 +39,8 @@ defmodule Poscaster.Endpoint do
     key: "_poscaster_key",
     signing_salt: "rthwvLJD"
 
+  # CORS for API
+  plug CORSPlug
+
   plug Poscaster.Router
 end

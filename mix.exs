@@ -44,6 +44,7 @@ defmodule Poscaster.Mixfile do
      {:feeder_ex, "~> 1.0"},
      {:httpoison, "~> 0.11"},
      {:timex, "~> 3.1"},
+     {:cors_plug, "~> 1.2"},
      {:exvcr, "~> 0.7", only: :test},
      {:ex_machina, "~> 2.0", only: :test}]
   end
