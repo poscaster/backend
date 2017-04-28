@@ -41,7 +41,7 @@ defmodule Poscaster.Mixfile do
      {:credo, "~> 0.5", only: [:dev, :test]},
      {:guardian, "~> 0.13"},
      {:excoveralls, "~> 0.6", only: :test},
-     {:feeder_ex, "~> 1.0"},
+     {:feeder_ex, git: "git://github.com/manukall/feeder_ex.git"}, # 1.0.1 does not work with elixir 1.4
      {:httpoison, "~> 0.11"},
      {:timex, "~> 3.1"},
      {:cors_plug, "~> 1.2"},

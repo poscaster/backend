@@ -5,6 +5,7 @@ defmodule Poscaster.User do
 
   use Poscaster.Web, :model
   import Ecto.Query
+  alias Comeonin.Bcrypt
   alias Poscaster.Repo
 
   schema "users" do
@@ -56,14 +57,14 @@ defmodule Poscaster.User do
   def find_and_confirm_password(%{"user" => %{"login" => login, "password" => password}}) do
     user = if login, do: find_by_email_or_login(login)
     if user && password do
-      if Comeonin.Bcrypt.checkpw(password, user.password_hash) do
+      if Bcrypt.checkpw(password, user.password_hash) do
         {:ok, user}
       else
         {:error}
       end
     else
       # No timing attack shall pass
-      Comeonin.Bcrypt.dummy_checkpw()
+      Bcrypt.dummy_checkpw()
       {:error}
     end
   end
@@ -81,7 +82,7 @@ defmodule Poscaster.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash,
-          Comeonin.Bcrypt.hashpwsalt(pass))
+          Bcrypt.hashpwsalt(pass))
 
       _ ->
         changeset

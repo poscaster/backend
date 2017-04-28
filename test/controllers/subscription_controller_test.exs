@@ -30,4 +30,19 @@ defmodule Poscaster.SubscriptionControllerTest do
       assert subscription.feed.url == url
     end
   end
+
+  test "POST /api/subscriptions (does not parse)", %{conn: conn} do
+    user = insert(:user)
+    url = "http://www.rssboard.org/files/sample-rss-2.xml"
+    use_cassette "bad_body_feed" do
+      conn = conn
+      |> login(user)
+      |> post("/api/subscriptions", %{subscription: %{url: url}})
+      assert Map.get(json_response(conn, 422), "error") == "cannot_parse"
+      subscription = Subscription
+      |> Repo.get_by(%{})
+      |> Repo.preload(:feed)
+      assert subscription == nil
+    end
+  end
 end

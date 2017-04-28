@@ -1,5 +1,6 @@
 defmodule Poscaster.SubscriptionController do
   use Poscaster.Web, :controller
+  alias Guardian.Plug, as: GPlug
   alias Poscaster.Feed
   alias Poscaster.Repo
   alias Poscaster.Subscription
@@ -8,7 +9,7 @@ defmodule Poscaster.SubscriptionController do
 
   @spec create(Plug.Conn.t, %{optional(String.t) => any}) :: Plug.Conn.t
   def create(conn, %{"subscription" => %{"url" => url}}) do
-    user = Guardian.Plug.current_resource(conn)
+    user = GPlug.current_resource(conn)
     case Feed.get_by_url_or_create(url, user) do
       {:ok, feed} ->
         changeset = %Subscription{}
@@ -23,7 +24,7 @@ defmodule Poscaster.SubscriptionController do
         end
       {:error, error} ->
         conn
-        |> put_status(400)
+        |> put_status(422)
         |> render("error.json", %{error: error})
     end
   end

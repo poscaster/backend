@@ -1,5 +1,6 @@
 defmodule Poscaster.UserView do
   use Poscaster.Web, :view
+  alias Ecto.Changeset
 
   @spec render(String.t, %{optional(atom) => any}) :: %{optional(any) => any}
   def render("user.json", %{user: user}) do
@@ -7,7 +8,7 @@ defmodule Poscaster.UserView do
   end
 
   def render("error.json", %{changeset: changeset}) do
-    errors = Ecto.Changeset.traverse_errors(changeset, fn
+    errors = Changeset.traverse_errors(changeset, fn
       {msg, opts} ->
         Enum.reduce(opts, msg, fn {k, v}, acc ->
           String.replace(acc, "%{#{k}}", to_string(v))

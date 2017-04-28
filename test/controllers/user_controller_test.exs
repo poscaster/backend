@@ -26,4 +26,20 @@ defmodule UserControllerTest do
     }}
     assert Comeonin.Bcrypt.checkpw(password, user.password_hash)
   end
+
+  test "POST /api/users (w/o invitation)", %{conn: conn} do
+    params = %{
+      login: "test",
+      email: "test@example.com",
+      password: "password",
+      password_confirmation: "password",
+    }
+    conn = post conn, "/api/users", %{user: params}
+    user = User
+    |> Repo.get_by(%{login: "test"})
+
+    assert user == nil
+    assert json_response(conn, 422)
+    |> get_in(["errors", "user", "invitation_code"]) == [ "can't be blank" ]
+  end
 end

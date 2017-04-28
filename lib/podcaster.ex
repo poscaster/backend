@@ -4,6 +4,7 @@ defmodule Poscaster do
   """
 
   use Application
+  alias Poscaster.Endpoint
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -24,7 +25,7 @@ defmodule Poscaster do
   @doc false
   @spec config_change({atom, term}, {atom, term}, [atom]) :: :ok
   def config_change(changed, _new, removed) do
-    Poscaster.Endpoint.config_change(changed, removed)
+    Endpoint.config_change(changed, removed)
     :ok
   end
 end
