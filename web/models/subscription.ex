@@ -33,5 +33,6 @@ defmodule Poscaster.Subscription do
     |> put_assoc(:feed, feed)
     |> put_assoc(:user, user)
     |> validate_required([:feed, :user])
+    |> unique_constraint(:feed, name: :subscriptions_user_id_feed_id_index)
   end
 end

@@ -6,9 +6,10 @@ defmodule Poscaster.SubscriptionController do
   alias Poscaster.Subscription
 
   plug Guardian.Plug.EnsureAuthenticated
+  plug :scrub_params, "url"
 
   @spec create(Plug.Conn.t, %{optional(String.t) => any}) :: Plug.Conn.t
-  def create(conn, %{"subscription" => %{"url" => url}}) do
+  def create(conn, %{"url" => url}) do
     user = GPlug.current_resource(conn)
     case Feed.get_by_url_or_create(url, user) do
       {:ok, feed} ->
@@ -20,6 +21,7 @@ defmodule Poscaster.SubscriptionController do
             |> render("subscription.json", %{subscription: subscription})
           {:error, _changeset} ->
             conn
+            |> put_status(422)
             |> render("error.json", %{error: :cannot_save_subscription})
         end
       {:error, error} ->

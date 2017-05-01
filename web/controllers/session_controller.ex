@@ -5,6 +5,7 @@ defmodule Poscaster.SessionController do
   alias Guardian.Plug, as: GPlug
   alias Plug.Conn
 
+  plug Guardian.Plug.EnsureAuthenticated when action in [:index]
   plug :scrub_params, "user" when action in [:create]
 
   @spec create(Conn.t, %{optional(String.t) => any}) :: Conn.t
@@ -21,6 +22,23 @@ defmodule Poscaster.SessionController do
         |> Conn.put_resp_header(<<"x-expires">>, :erlang.integer_to_binary(exp))
         |> render("session.json", user: user, jwt: jwt, exp: exp)
       {:error} ->
+        conn
+        |> put_status(401)
+        |> render("error.json", message: "Could not login")
+    end
+  end
+
+  @spec index(Conn.t, %{}) :: Conn.t
+  def index(conn, _params) do
+    jwt = GPlug.current_token(conn)
+    user = GPlug.current_resource(conn)
+    case GPlug.claims(conn) do
+      {:ok, %{"exp" => exp}} ->
+        conn
+        |> Conn.put_resp_header(<<"authorization">>, <<"Bearer #{jwt}">>)
+        |> Conn.put_resp_header(<<"x-expires">>, :erlang.integer_to_binary(exp))
+        |> render("session.json", user: user, jwt: jwt, exp: exp)
+      {:error, _} ->
         conn
         |> put_status(401)
         |> render("error.json", message: "Could not login")

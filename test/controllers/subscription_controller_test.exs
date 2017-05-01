@@ -15,7 +15,7 @@ defmodule Poscaster.SubscriptionControllerTest do
     use_cassette "example_feed" do
       conn = conn
       |> login(user)
-      |> post("/api/subscriptions", %{subscription: %{url: url}})
+      |> post("/api/subscriptions", %{url: url})
       assert json_response(conn, 200) == %{
         "subscription" => %{
           "url" => url,
@@ -37,7 +37,7 @@ defmodule Poscaster.SubscriptionControllerTest do
     use_cassette "bad_body_feed" do
       conn = conn
       |> login(user)
-      |> post("/api/subscriptions", %{subscription: %{url: url}})
+      |> post("/api/subscriptions", %{url: url})
       assert Map.get(json_response(conn, 422), "error") == "cannot_parse"
       subscription = Subscription
       |> Repo.get_by(%{})

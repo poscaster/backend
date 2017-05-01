@@ -5,7 +5,7 @@ defmodule Poscaster.Repo.Migrations.CreateFeed do
     create table(:feeds) do
       add :url, :string, null: false
       add :title, :string
-      add :description, :string
+      add :description, :text
       add :last_fetched_at, :timestamp
       add :creator_id, references(:users, on_delete: :nothing)
 

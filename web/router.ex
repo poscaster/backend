@@ -15,7 +15,7 @@ defmodule Poscaster.Router do
     pipe_through :api_auth
 
     resources "/users", UserController, only: [:create]
-    resources "/sessions", SessionController, only: ~w(create delete)a
+    resources "/sessions", SessionController, only: ~w(create index delete)a
     resources "/subscriptions", SubscriptionController, only: ~w(create)a
   end
 end
