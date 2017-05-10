@@ -6,7 +6,15 @@ defmodule Poscaster.SubscriptionController do
   alias Poscaster.Subscription
 
   plug Guardian.Plug.EnsureAuthenticated
-  plug :scrub_params, "url"
+  plug :scrub_params, "url" when action == :create
+
+  @spec index(Plug.Conn.t, %{}) :: Plug.Conn.t
+  def index(conn, %{}) do
+    subscriptions = conn
+    |> GPlug.current_resource()
+    |> Subscription.get_active_for_user()
+    render(conn, "subscriptions.json", %{subscriptions: subscriptions})
+  end
 
   @spec create(Plug.Conn.t, %{optional(String.t) => any}) :: Plug.Conn.t
   def create(conn, %{"url" => url}) do
@@ -17,8 +25,7 @@ defmodule Poscaster.SubscriptionController do
         |> Subscription.creation_changeset(feed, user)
         case Repo.insert(changeset) do
           {:ok, subscription} ->
-            conn
-            |> render("subscription.json", %{subscription: subscription})
+            render(conn, "subscription.json", %{subscription: subscription})
           {:error, _changeset} ->
             conn
             |> put_status(422)

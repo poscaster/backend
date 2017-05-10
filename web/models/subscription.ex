@@ -4,6 +4,7 @@ defmodule Poscaster.Subscription do
   """
 
   use Poscaster.Web, :model
+  import Ecto.Query
   alias Poscaster.Repo
 
   schema "subscriptions" do
@@ -34,5 +35,13 @@ defmodule Poscaster.Subscription do
     |> put_assoc(:user, user)
     |> validate_required([:feed, :user])
     |> unique_constraint(:feed, name: :subscriptions_user_id_feed_id_index)
+  end
+
+  @spec get_active_for_user(%Poscaster.User{}) :: [%Poscaster.Subscription{}]
+  def get_active_for_user(%Poscaster.User{id: user_id}) do
+    Poscaster.Subscription
+    |> where([s], s.user_id == ^user_id and s.active)
+    |> Repo.all
+    |> Repo.preload(:feed)
   end
 end

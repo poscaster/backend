@@ -15,4 +15,12 @@ defmodule Poscaster.SubscriptionTest do
     changeset = Subscription.creation_changeset(%Subscription{}, nil, nil, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "get_all_by_user" do
+    user = insert(:user)
+    insert_list(3, :subscription, %{user: user})
+    assert user
+    |> Subscription.get_active_for_user()
+    |> Enum.count() == 3
+  end
 end

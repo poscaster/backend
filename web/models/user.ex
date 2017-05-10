@@ -83,7 +83,6 @@ defmodule Poscaster.User do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash,
           Bcrypt.hashpwsalt(pass))
-
       _ ->
         changeset
     end
