@@ -1,8 +1,9 @@
 defmodule Poscaster.Factory do
   use ExMachina.Ecto, repo: Poscaster.Repo
   alias Poscaster.Feed
-  alias Poscaster.User
   alias Poscaster.Invitation
+  alias Poscaster.User
+  alias Poscaster.Subscription
 
   def user_factory do
     pass = sequence(:password, &"password-#{&1}")
@@ -26,6 +27,13 @@ defmodule Poscaster.Factory do
       title: sequence(:title, &"title-#{&1}"),
       url: sequence(:url, &"http://example.com/feed#{&1}"),
       creator: build(:user)
+    }
+  end
+
+  def subscription_factory do
+    %Subscription{
+      feed: build(:feed),
+      user: build(:user)
     }
   end
 end
