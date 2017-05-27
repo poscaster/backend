@@ -1,4 +1,4 @@
-defmodule Poscaster.SubscriptionItem do
+defmodule Poscaster.Impression do
   @moduledoc """
   Subscription item model module
   """
@@ -8,7 +8,8 @@ defmodule Poscaster.SubscriptionItem do
   schema "subscription_items" do
     field :paused_at, :integer
     field :finished, :boolean, default: false
-    belongs_to :subscription, Poscaster.Subscription
+    field :rating, :integer
+    belongs_to :user, Poscaster.User
     belongs_to :feed_item, Poscaster.FeedItem
 
     timestamps()
@@ -17,7 +18,7 @@ defmodule Poscaster.SubscriptionItem do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  @spec changeset(%Poscaster.SubscriptionItem{}, %{optional(any) => any}) :: %Ecto.Changeset{}
+  @spec changeset(%Poscaster.Impression{}, %{optional(any) => any}) :: %Ecto.Changeset{}
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:paused_at, :finished])
