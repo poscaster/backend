@@ -16,6 +16,9 @@ defmodule Poscaster.Router do
 
     resources "/users", UserController, only: [:create]
     resources "/sessions", SessionController, only: ~w(create index delete)a
+    resources "/feeds", FeedController do
+      post "/refetch", FeedController, :refetch, as: :refetch
+    end
     resources "/subscriptions", SubscriptionController, only: ~w(create index)a
   end
 end

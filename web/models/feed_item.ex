@@ -1,6 +1,6 @@
 defmodule Poscaster.FeedItem do
   @moduledoc """
-  Fiid item model module
+  Feed item model module
   """
 
   use Poscaster.Web, :model
@@ -8,8 +8,9 @@ defmodule Poscaster.FeedItem do
   schema "feed_items" do
     field :url, :string
     field :item_xml, :string
+    field :pub_date, :utc_datetime
+    field :item_data, :map
     belongs_to :feed, Poscaster.Feed
-    embeds_one :item_data, Podcaster.FeedItemData
 
     timestamps()
   end
@@ -20,7 +21,7 @@ defmodule Poscaster.FeedItem do
   @spec changeset(%Poscaster.FeedItem{}, %{optional(any) => any}) :: %Ecto.Changeset{}
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:url, :item_xml])
-    |> validate_required([:url, :item_xml])
+    |> cast(params, [:url, :pub_date, :item_data])
+    |> validate_required([:url, :feed])
   end
 end
