@@ -1,4 +1,5 @@
 defmodule Poscaster.FeedItemTest do
+  import Poscaster.Factory
   use Poscaster.ModelCase
 
   alias Poscaster.FeedItem
@@ -7,7 +8,8 @@ defmodule Poscaster.FeedItemTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = FeedItem.changeset(%FeedItem{}, @valid_attrs)
+    feed = insert(:feed)
+    changeset = FeedItem.changeset(%FeedItem{feed: feed}, @valid_attrs)
     assert changeset.valid?
   end
 
