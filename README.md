@@ -8,7 +8,15 @@
 
 ### Clone project
 
-    curl https://raw.githubusercontent.com/poscaster/backend/master/scripts/clone.sh | bash
+    curl https://raw.githubusercontent.com/poscaster/backend/master/scripts/clone.sh | sudo bash
+
+or
+
+    mkdir poscaster
+    cd poscaster
+
+    git clone git@github.com:poscaster/backend.git
+    git clone git@github.com:poscaster/frontend.git
 
 ### Run
 
