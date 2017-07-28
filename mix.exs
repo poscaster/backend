@@ -4,7 +4,7 @@ defmodule Poscaster.Mixfile do
   def project do
     [app: :poscaster,
      version: "0.0.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -37,7 +37,8 @@ defmodule Poscaster.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 3.0"},
+     {:comeonin, "~> 4.0"},
+     {:bcrypt_elixir, "~> 0.12"},
      {:credo, "~> 0.5", only: [:dev, :test]},
      {:guardian, "~> 0.13"},
      {:excoveralls, "~> 0.6", only: :test},
@@ -45,7 +46,7 @@ defmodule Poscaster.Mixfile do
      {:httpoison, "~> 0.11"},
      {:timex, "~> 3.1"},
      {:cors_plug, "~> 1.2"},
-     {:exvcr, "~> 0.7", only: :test},
+     {:exvcr, "~> 0.8", only: :test},
      {:ex_machina, "~> 2.0", only: :test}]
   end
 
