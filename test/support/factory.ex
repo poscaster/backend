@@ -23,7 +23,7 @@ defmodule Poscaster.Factory do
   def feed_factory do
     %Feed{
       description: sequence(:description, &"description-#{&1}"),
-      last_fetched_at: Ecto.DateTime.cast!("2010-01-01 01:02:03"),
+      last_fetched_at: "2010-01-01 01:02:03",
       title: sequence(:title, &"title-#{&1}"),
       url: sequence(:url, &"http://example.com/feed#{&1}"),
       creator: build(:user)

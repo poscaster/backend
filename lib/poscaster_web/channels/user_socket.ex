@@ -1,8 +1,8 @@
-defmodule Poscaster.UserSocket do
+defmodule PoscasterWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Poscaster.RoomChannel
+  # channel "room:*", PoscasterWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -31,7 +31,7 @@ defmodule Poscaster.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     Poscaster.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
+  #     PoscasterWeb.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   @spec id(Socket.t) :: String.t | nil

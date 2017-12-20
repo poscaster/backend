@@ -1,4 +1,4 @@
-defmodule Poscaster.UserController do
+defmodule PoscasterWeb.UserController do
   use Poscaster.Web, :controller
   alias Poscaster.User
 
@@ -8,7 +8,7 @@ defmodule Poscaster.UserController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
-        # |> Podcaster.Auth.login(user)
+        # |> Poscaster.Auth.login(user)
         |> render("user.json", user: user)
       {:error, changeset} ->
         conn

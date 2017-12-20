@@ -1,4 +1,4 @@
-defmodule Poscaster.ConnCase do
+defmodule PoscasterWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,13 +25,13 @@ defmodule Poscaster.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Poscaster.Router.Helpers
+      import PoscasterWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Poscaster.Endpoint
+      @endpoint PoscasterWeb.Endpoint
 
       def login(conn, user) do
-        params = %{ login: user.login, password: user.password }
+        params = %{login: user.login, password: user.password}
         conn = post conn, "/api/sessions", %{user: params}
         auth = List.first(get_resp_header(conn, "authorization"))
         conn

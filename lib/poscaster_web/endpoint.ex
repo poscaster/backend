@@ -1,7 +1,7 @@
-defmodule Poscaster.Endpoint do
+defmodule PoscasterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :poscaster
 
-  socket "/socket", Poscaster.UserSocket
+  socket "/socket", PoscasterWeb.UserSocket
 
   if code_reloading? do
     plug Phoenix.CodeReloader
@@ -42,5 +42,5 @@ defmodule Poscaster.Endpoint do
   # CORS for API
   plug CORSPlug
 
-  plug Poscaster.Router
+  plug PoscasterWeb.Router
 end

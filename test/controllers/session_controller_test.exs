@@ -1,5 +1,5 @@
-defmodule SessionControllerTest do
-  use Poscaster.ConnCase
+defmodule PoscasterWeb.SessionControllerTest do
+  use PoscasterWeb.ConnCase
   import Poscaster.Factory
 
   test "POST /api/sessions", %{conn: conn} do
@@ -55,6 +55,6 @@ defmodule SessionControllerTest do
       "jwt" => nil,
       "exp" => nil
     }
-    assert Guardian.Plug.current_resource(recycle(conn)) == nil
+    assert PoscasterWeb.Guardian.Plug.current_resource(recycle(conn)) == nil
   end
 end

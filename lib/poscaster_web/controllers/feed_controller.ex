@@ -1,6 +1,5 @@
-defmodule Poscaster.FeedController do
+defmodule PoscasterWeb.FeedController do
   use Poscaster.Web, :controller
-  alias Guardian.Plug, as: GPlug
   alias Poscaster.Feed
   alias Poscaster.FeedUpdater
   alias Poscaster.Repo

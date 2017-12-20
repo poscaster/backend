@@ -10,7 +10,7 @@ config :poscaster,
   ecto_repos: [Poscaster.Repo]
 
 # Configures the endpoint
-config :poscaster, Poscaster.Endpoint,
+config :poscaster, PoscasterWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yO+0RYxyyFCdSFISFiAUUWYDK2uHX0JBVqQJpwHX1MVlPHtixb5nv0dK1NMtIpLh",
   # render_errors: [view: Poscaster.ErrorView, accepts: ~w(html json)],

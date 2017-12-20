@@ -1,5 +1,5 @@
-defmodule UserControllerTest do
-  use Poscaster.ConnCase
+defmodule PoscasterWeb.UserControllerTest do
+  use PoscasterWeb.ConnCase
   import Poscaster.Factory
   alias Poscaster.User
 
@@ -39,7 +39,8 @@ defmodule UserControllerTest do
     |> Repo.get_by(%{login: "test"})
 
     assert user == nil
-    assert json_response(conn, 422)
-    |> get_in(["errors", "user", "invitation_code"]) == [ "can't be blank" ]
+    assert conn
+    |> json_response(422)
+    |> get_in(["errors", "user", "invitation_code"]) == ["can't be blank"]
   end
 end

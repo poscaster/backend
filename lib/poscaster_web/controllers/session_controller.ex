@@ -1,8 +1,8 @@
-defmodule Poscaster.SessionController do
+defmodule PoscasterWeb.SessionController do
   use Poscaster.Web, :controller
 
   alias Poscaster.User
-  alias Guardian.Plug, as: GPlug
+  alias PoscasterWeb.Guardian.Plug, as: GPlug
   alias Plug.Conn
 
   plug Guardian.Plug.EnsureAuthenticated when action in [:index]
@@ -12,9 +12,9 @@ defmodule Poscaster.SessionController do
   def create(conn, params) do
     case User.find_and_confirm_password(params) do
       {:ok, user} ->
-        new_conn = GPlug.api_sign_in(conn, user)
+        new_conn = GPlug.sign_in(conn, user)
         jwt = GPlug.current_token(new_conn)
-        {:ok, claims} = GPlug.claims(new_conn)
+        claims = GPlug.current_claims(new_conn)
         exp = Map.get(claims, "exp")
 
         new_conn
@@ -32,13 +32,13 @@ defmodule Poscaster.SessionController do
   def index(conn, _params) do
     jwt = GPlug.current_token(conn)
     user = GPlug.current_resource(conn)
-    case GPlug.claims(conn) do
-      {:ok, %{"exp" => exp}} ->
+    case GPlug.current_claims(conn) do
+      %{"exp" => exp} ->
         conn
         |> Conn.put_resp_header(<<"authorization">>, <<"Bearer #{jwt}">>)
         |> Conn.put_resp_header(<<"x-expires">>, :erlang.integer_to_binary(exp))
         |> render("session.json", user: user, jwt: jwt, exp: exp)
-      {:error, _} ->
+      _ ->
         conn
         |> put_status(401)
         |> render("error.json", message: "Could not login")
@@ -47,10 +47,8 @@ defmodule Poscaster.SessionController do
 
   @spec delete(Conn.t, %{optional(String.t) => any}) :: Conn.t
   def delete(conn, _params) do
-    jwt = GPlug.current_token(conn)
-    {:ok, claims} = GPlug.claims(conn)
-    Guardian.revoke!(jwt, claims)
     conn
+    |> GPlug.sign_out
     |> render("session.json", user: nil, jwt: nil, exp: nil)
   end
 end

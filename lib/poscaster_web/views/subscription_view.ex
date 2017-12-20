@@ -1,4 +1,4 @@
-defmodule Poscaster.SubscriptionView do
+defmodule PoscasterWeb.SubscriptionView do
   use Poscaster.Web, :view
 
   @spec render(String.t, %{optional(atom) => any}) :: %{optional(any) => any}

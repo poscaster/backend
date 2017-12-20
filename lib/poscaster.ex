@@ -4,7 +4,7 @@ defmodule Poscaster do
   """
 
   use Application
-  alias Poscaster.Endpoint
+  alias PoscasterWeb.Endpoint
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -15,7 +15,7 @@ defmodule Poscaster do
 
     children = [
       supervisor(Poscaster.Repo, []),
-      supervisor(Poscaster.Endpoint, []),
+      supervisor(PoscasterWeb.Endpoint, []),
     ]
 
     opts = [strategy: :one_for_one, name: Poscaster.Supervisor]

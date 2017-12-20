@@ -28,27 +28,28 @@ defmodule Poscaster.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: PoscasterWeb
 
       alias Poscaster.Repo
       import Ecto
       import Ecto.Query
 
-      import Poscaster.Router.Helpers
-      import Poscaster.Gettext
+      import PoscasterWeb.Router.Helpers
+      import PoscasterWeb.Gettext
+      import PoscasterWeb.ControllerHelpers
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "web/templates"
+      use Phoenix.View, root: "lib/poscaster_web/templates"
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
-      import Poscaster.Router.Helpers
-      # import Poscaster.ErrorHelpers
-      import Poscaster.Gettext
+      import PoscasterWeb.Router.Helpers
+      # import PoscasterWeb.ErrorHelpers
+      import PoscasterWeb.Gettext
     end
   end
 
@@ -65,7 +66,7 @@ defmodule Poscaster.Web do
       alias Poscaster.Repo
       import Ecto
       import Ecto.Query
-      import Poscaster.Gettext
+      import PoscasterWeb.Gettext
     end
   end
 

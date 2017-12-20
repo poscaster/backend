@@ -10,7 +10,8 @@ defmodule Poscaster.User do
 
   schema "users" do
     belongs_to :invitation, Poscaster.Invitation, foreign_key: :invitation_code,
-                                                  type: :binary_id
+                                                  type: :binary_id,
+                                                  references: :code
 
     field :email, :string
     field :login, :string

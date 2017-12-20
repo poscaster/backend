@@ -13,7 +13,7 @@ defmodule Poscaster.Feed do
     field :url, :string
     field :title, :string
     field :description, :string
-    field :last_fetched_at, Ecto.DateTime
+    field :last_fetched_at, :naive_datetime
     belongs_to :creator, Poscaster.User
 
     timestamps()

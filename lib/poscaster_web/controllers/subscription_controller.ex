@@ -1,6 +1,6 @@
-defmodule Poscaster.SubscriptionController do
+defmodule PoscasterWeb.SubscriptionController do
   use Poscaster.Web, :controller
-  alias Guardian.Plug, as: GPlug
+  alias PoscasterWeb.Guardian.Plug, as: GPlug
   alias Poscaster.Feed
   alias Poscaster.Repo
   alias Poscaster.Subscription

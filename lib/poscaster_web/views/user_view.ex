@@ -1,4 +1,4 @@
-defmodule Poscaster.UserView do
+defmodule PoscasterWeb.UserView do
   use Poscaster.Web, :view
   alias Ecto.Changeset
 

@@ -1,4 +1,4 @@
-defmodule Poscaster.SessionView do
+defmodule PoscasterWeb.SessionView do
   use Poscaster.Web, :view
 
   @spec render(String.t, %{optional(atom) => any}) :: %{optional(any) => any}

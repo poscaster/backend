@@ -1,5 +1,5 @@
-defmodule Poscaster.SubscriptionControllerTest do
-  use Poscaster.ConnCase
+defmodule PoscasterWeb.SubscriptionControllerTest do
+  use PoscasterWeb.ConnCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   import Poscaster.Factory
   alias Poscaster.Subscription
